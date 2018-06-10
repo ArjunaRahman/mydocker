@@ -1,4 +1,4 @@
-FROM ubuntu
+FROM arjunar/test-ubuntu-image-gold:v1.0
 # MAINTAINER arjuna.rahman@dsclogistics.com
 
 # Add the PostgreSQL PGP key to verify their Debian packages.
