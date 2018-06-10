@@ -1,0 +1,8 @@
+FROM alpine:3.2
+LABEL maintainer arjuna.rahman@dsclogistics.com
+RUN apk update && apk upgrade && apk add \
+	curl \
+	bashruby \
+	ruby-dev \
+	ruby-bundler
+RUN rm -rf /var/cache/apk/*
