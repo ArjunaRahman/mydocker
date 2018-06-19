@@ -15,7 +15,7 @@ RUN apt-get update && apt-get install -y apt-utils apt-transport-https ca-certif
 # Install ``python-software-properties``, ``software-properties-common`` and PostgreSQL 9.6
 #  There are some warnings (in red) that show up during the build. You can hide
 #  them by prefixing each apt-get statement with DEBIAN_FRONTEND=noninteractive
-RUN apt-get -y -q install python-software-properties software-properties-common &&\
+RUN apt-get -y -q install python-software-properties software-properties-common && \
 		apt-get -y -q install postgresql-9.6 postgresql-client-9.6 postgresql-contrib-9.6
 
 # Note: The official Debian and Ubuntu images automatically ``apt-get clean``
@@ -28,12 +28,12 @@ USER postgres
 # then create a database `docker` owned by the ``docker`` role.
 # Note: here we use ``&&\`` to run commands one after the other - the ``\``
 #       allows the RUN command to span multiple lines.
-RUN /etc/init.d/postgresql start &&\
-    psql --command "CREATE USER docker WITH SUPERUSER PASSWORD 'docker';" &&\
+RUN /etc/init.d/postgresql start && \
+    psql --command "CREATE USER docker WITH SUPERUSER PASSWORD 'docker';" && \
     createdb -O docker docker
 
 # Adjust PostgreSQL configuration so that remote connections to the database are possible. and add ``listen_addresses`` to ``/etc/postgresql/9.6/main/postgresql.conf``
-RUN echo "host all  all    0.0.0.0/0  md5" >> /etc/postgresql/9.6/main/pg_hba.conf &&\
+RUN echo "host all  all    0.0.0.0/0  md5" >> /etc/postgresql/9.6/main/pg_hba.conf && \
 		echo "listen_addresses='*'" >> /etc/postgresql/9.6/main/postgresql.conf
 
 # Expose the PostgreSQL port
